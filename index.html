@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Aplicación Móvil</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+
+
+  <meta name="theme-color" content="#3b82f6">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(() => console.log('SW registrado'));
+    }
+  </script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- PANTALLA DE BIENVENIDA -->
+    <div id="welcome-screen" class="screen active">
+      <div class="container">
+        <div class="card">
+          <!-- Imagen superior -->
+          <div class="card-image">
+            <img src="Images/Fondo.png" alt="imagen superior">
+
+            <!-- Texto sobre la imagen -->
+            <div class="overlay-text">
+              <h1>Welcome</h1>
+              <p>
+                Turn your phone into a smart control center.
+                Monitor temperature, humidity, and light while
+                controlling relays and actuators wirelessly.
+              </p>
+            </div>
+          </div>
+
+          <!-- Contenido inferior -->
+          <div class="card-content">
+
+            <!-- Logo central -->
+            <div class="logo-circle">
+              <img src="Images/image (1).png" alt="mi logo">
+            </div>
+
+            <div class="text-welcome">
+              <h1>LOGIN APPLICATION</h1>
+            </div>
+
+            <!-- Botón principal -->
+            <div class="button-section">
+              <button id="btn-register" class="btn btn-primary">Ingresar</button>
+            </div>
+
+            <!-- Redes sociales -->
+            <div class="social-section">
+              <p>Conecta con nosotros</p>
+              <div class="social-icons">
+                <div class="social-circle"><i class="fab fa-facebook-f"></i></div>
+                <div class="social-circle"><i class="fab fa-twitter"></i></div>
+                <div class="social-circle"><i class="fab fa-linkedin-in"></i></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Pantalla Principal-->
+    <div id="main-screen" class="screen">
+      <div class="container">
+
+        <!-- Header con botón de regreso -->
+        <div class="main-header">
+          <div class="header-top">
+            <div class="back-button" id="back-button">
+              <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="header-title-section">
+              <h1 class="main-title">Panel de Control</h1>
+              <p class="main-subtitle">Monitoreo y Control</p>
+            </div>
+            <div style="width: 44px;"></div> <!-- Espaciador -->
+          </div>
+          <!-- El indicador de conexión se agregará aquí dinámicamente -->
+        </div>
+
+        <div class="Panel">
+
+          <!--Panel temperatura y humedad con indicadores duales-->
+          <div class="card sensor-card">
+            <div class="panel-header">
+              <div class="panel-icon">
+                <i class="fas fa-thermometer-half"></i>
+              </div>
+              <h2 class="panel-title">Temperatura y Humedad</h2>
+            </div>
+            <div class="dual-indicators">
+              <div class="mini-indicator temp-mini">
+                <div class="circular-progress">
+                  <div class="progress-value">
+                    <div class="main-value">0°</div>
+                    <div class="sub-value">Temp</div>
+                  </div>
+                </div>
+              </div>
+              <div class="mini-indicator humidity-mini">
+                <div class="circular-progress">
+                  <div class="progress-value">
+                    <div class="main-value">0%</div>
+                    <div class="sub-value">Hum</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Panel Luminosidad con indicador circular-->
+          <div class="card sensor-card">
+            <div class="panel-header">
+              <div class="panel-icon">
+                <i class="fas fa-sun"></i>
+              </div>
+              <h2 class="panel-title">Luminosidad</h2>
+            </div>
+            <div class="circular-indicator light-indicator">
+              <div class="circular-progress">
+                <div class="progress-value">
+                  <div class="main-value">0%</div>
+                  <div class="sub-value">Luz</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Panel control LEDs con switches modernos-->
+          <div class="card control-card">
+            <div class="panel-header">
+              <div class="panel-icon">
+                <i class="fas fa-toggle-on"></i>
+              </div>
+              <h2 class="panel-title">Control de LEDs</h2>
+            </div>
+            <div class="Led-controls">
+
+              <div class="led-control-item led-1" data-led="1" onclick="toggleLED(this, 1)">
+                <div class="led-info">
+                  <div class="led-indicator"></div>
+                  <div>
+                    <div class="led-label">LED Rojo</div>
+                    <div class="led-status">Apagado</div>
+                  </div>
+                </div>
+                <div class="led-switch"></div>
+              </div>
+
+              <div class="led-control-item led-2" data-led="2" onclick="toggleLED(this, 2)">
+                <div class="led-info">
+                  <div class="led-indicator"></div>
+                  <div>
+                    <div class="led-label">LED Verde</div>
+                    <div class="led-status">Apagado</div>
+                  </div>
+                </div>
+                <div class="led-switch"></div>
+              </div>
+
+              <div class="led-control-item led-3" data-led="3" onclick="toggleLED(this, 3)">
+                <div class="led-info">
+                  <div class="led-indicator"></div>
+                  <div>
+                    <div class="led-label">LED Azul</div>
+                    <div class="led-status">Apagado</div>
+                  </div>
+                </div>
+                <div class="led-switch"></div>
+              </div>
+
+              <div class="led-control-item led-4" data-led="4" onclick="toggleLED(this, 4)">
+                <div class="led-info">
+                  <div class="led-indicator"></div>
+                  <div>
+                    <div class="led-label">LED Amarillo</div>
+                    <div class="led-status">Apagado</div>
+                  </div>
+                </div>
+                <div class="led-switch"></div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
